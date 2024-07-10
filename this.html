@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      let x = {
+        b: 5,
+        y: function a() {
+          return function () {
+            return () => {
+              console.log(this === window);
+            };
+          };
+        },
+      };
+
+      x.y()()();
+
+      //   window.name = "global";
+
+      //   var person = {
+      //     name: "jason",
+
+      //     shout: function () {
+      //       console.log("my name is ", this.name);
+      //     },
+      //     shout2: () => {
+      //       console.log("my name is ", this.name);
+      //     },
+      //     // Shorter syntax
+      //     shout3() {
+      //       console.log("my name is ", this.name);
+      //     },
+      //   };
+
+      //   person.shout(); // "jason"
+      //   person.shout2(); // "global"
+      //   person.shout3(); // "jason"
+    </script>
+  </head>
+  <body></body>
+</html>

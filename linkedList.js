@@ -1,145 +1,125 @@
-// Construct Single Node
 class Node {
-  constructor(data, next = null) {
-    this.data = data;
-    this.next = next;
+  constructor(val) {
+    this.val = val;
+    this.next = null
   }
 }
 
-// Create/Get/Remove Nodes From Linked List
-class LinkedList {
+class SinglyLinkedList {
   constructor() {
+    this.length = 0;
     this.head = null;
-    this.size = 0;
+    this.tail = null;
   }
 
-  // Insert first node
-  insertFirst(data) {
-    this.head = new Node(data, this.head);
-    this.size++;
-  }
-
-  // Insert last node
-  insertLast(data) {
-    let node = new Node(data);
-    let current;
-
-    // If empty, make head
-    if (!this.head) {
-      this.head = node;
+  push(val) {
+    let newNode = new Node(val)
+    if (this.length === 0) {
+      this.head = newNode;
+      this.tail = newNode;
+      this.length++;
     } else {
-      current = this.head;
-
-      while (current.next) {
-        current = current.next;
-      }
-
-      current.next = node;
+      this.tail.next = newNode;
+      this.tail = newNode;
+      this.length++
     }
-
-    this.size++;
+    return this;
   }
 
-  // Insert at index
-  insertAt(data, index) {
-    //  If index is out of range
-    if (index > 0 && index > this.size) {
-      return;
+  pop() {
+    if (this.length === 0) return undefined;
+
+    let currentNode = this.head;
+    let prevNode = currentNode;
+
+    while (currentNode.next) {
+      prevNode = currentNode;
+      currentNode = currentNode.next;
     }
 
-    // If first index
-    if (index === 0) {
-      this.insertFirst(data);
-      return;
-    }
-
-    const node = new Node(data);
-    let current, previous;
-
-    // Set current to first
-    current = this.head;
-    let count = 0;
-
-    while (count < index) {
-      previous = current; // Node before index
-      count++;
-      current = current.next; // Node after index
-    }
-
-    node.next = current;
-    previous.next = node;
-
-    this.size++;
+    prevNode.next = null;
+    this.tail = prevNode;
+    this.length--;
+    return currentNode;
   }
 
-  // Get at index
-  getAt(index) {
-    let current = this.head;
-    let count = 0;
+  shift() {
+    if (this.length === 0) return undefined;
 
-    while (current) {
-      if (count == index) {
-        console.log(current.data);
-      }
-      count++;
-      current = current.next;
-    }
-
-    return null;
+    let currentHead = this.head;
+    this.head = this.head.next;
+    this.length--;
+    return currentHead;
   }
 
-  // Remove at index
-  removeAt(index) {
-    if (index > 0 && index > this.size) {
-      return;
-    }
+  unshift(val) {
+    let newNode = new Node(val)
 
-    let current = this.head;
-    let previous;
-    let count = 0;
-
-    // Remove first
-    if (index === 0) {
-      this.head = current.next;
+    if (this.length === 0) {
+      this.head = newNode;
+      this.tail = newNode;
     } else {
-      while (count < index) {
-        count++;
-        previous = current;
-        current = current.next;
-      }
-
-      previous.next = current.next;
+      newNode.next = this.head
+      this.head = newNode;
     }
+    this.length++;
 
-    this.size--;
+    return this;
   }
 
-  // Clear list
-  clearList() {
-    this.head = null;
-    this.size = 0;
+  get(index) {
+    if (this.length === 0) return undefined;
+
+    if (index >= this.length) return undefined;
+
+    let counter = 0;
+    let currentNode = this.head;
+    while (counter < index) {
+      currentNode = currentNode.next;
+      counter++;
+    }
+    return currentNode;
   }
 
-  // Print list data
-  printListData() {
-    let current = this.head;
-
-    while (current) {
-      console.log(current.data);
-      current = current.next;
+  set(index, val) {
+    let node = this.get(index);
+    if (node) {
+      node.val = val;
+      return node;
     }
+    return undefined;
+  }
+
+  insert(index, val) {
+    if (index < 0 || index > this.length) return false;
+    if (index === 0) return !!this.unshift(val);
+    if (index === this.length) return !!this.push(val)
+
+    let newNode = new Node(val);
+    let prevNode = this.get(index - 1);
+    let temp = prevNode.next;
+    prevNode.next = newNode
+    newNode.next = temp;
+    this.length++
+    return true;
+  }
+
+  remove(index) {
+    if (index < 0 || index > this.length) return undefined;
+    if (index === 0) return this.shift();
+    if (index === this.length) return this.pop();
+
+    let foundNode = this.get(index - 1);
+    let toBeRemovedNode = foundNode.next;
+    foundNode.next = toBeRemovedNode.next;
+    toBeRemovedNode.next = null;
+    this.length--
+    return toBeRemovedNode;
   }
 }
 
-const ll = new LinkedList();
-
-ll.insertFirst(100);
-ll.insertFirst(200);
-ll.insertFirst(300);
-ll.insertLast(400);
-ll.insertAt(500, 3);
-
-// ll.clearList();
-// ll.getAt(2);
-
-ll.printListData();
+let list = new SinglyLinkedList();
+list.push("a")
+list.push("b")
+list.push("c")
+console.log("🚀 ~ list:", list)

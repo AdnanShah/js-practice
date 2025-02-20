@@ -1,18 +1,17 @@
-/**
- * @param {number} x
- * @return {boolean}
- */
 var isPalindrome = function (x) {
-  let reverse = 0
-  let copyNumber = x
+  console.log("🚀 ~ x:", x)
+  let originalX = x
+  let reverseX = 0
 
-  while (copyNumber > 0) {
-    let lastDigit = copyNumber % 10
-    reverse = reverse * 10 + lastDigit
-    copyNumber = Math.floor(copyNumber / 10)
+  while (x > 0) {
+    const lastX = x % 10
+    reverseX = reverseX * 10 + lastX
+    x = Math.floor(x / 10)
   }
 
-  return x === reverse
+  return originalX === reverseX
 };
 
+
 console.log('================================', isPalindrome(121))
+console.log('================================', isPalindrome(123))

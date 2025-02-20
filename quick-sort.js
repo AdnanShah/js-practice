@@ -1,22 +1,22 @@
-// partition and sort by pivot value
-const quickSort = arr => {
+// O(n log n)
+// divide-and-conquer
+const quickSort = (arr) => {
   if (arr.length <= 1) return arr
 
-  const pivot = arr[0]
-
-  const leftArr = []
-  const rightArr = []
+  let pivot = arr[0]
+  let left = []
+  let right = []
 
   for (let i = 1; i < arr.length; i++) {
     if (arr[i] < pivot) {
-      leftArr.push(arr[i])
+      left.push(arr[i])
     } else {
-      rightArr.push(arr[i])
+      right.push(arr[i])
     }
   }
 
-  return [...quickSort(leftArr), pivot, ...quickSort(rightArr)]
-}
+  return [...quickSort(left), pivot, ...quickSort(right)]
+};
 
-const unSortedList = [5, 4, 1, 9, 2]
-console.log("🚀 ~ quick Sort:", quickSort(unSortedList)) // [1, 2, 4, 5, 9]
+const unSortedList = [5, 4, 1, 9, 2];
+console.log("🚀 ~ Quick Sort Result:", quickSort(unSortedList));

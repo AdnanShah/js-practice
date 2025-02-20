@@ -1,5 +1,4 @@
-
-const findDuplicates = nums => nums.filter((num, index) => nums.indexOf(num) !== index)
+const findDuplicates = nums => nums.filter((num, i) => nums.indexOf(num) !== i)
 
 const arr = [4, 5, 12, 5, 4]
 console.log("🚀 ~ findDuplicates:", findDuplicates(arr))

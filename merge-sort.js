@@ -1,27 +1,27 @@
-const sortAndMerge = (arr1, arr2) => {
-  const sortedList = []
+const mergeAndSort = (left, right) => {
+  let sortedList = []
 
-  while (arr1.length && arr2.length) {
-    if (arr1[0] < arr2[0]) {
-      sortedList.push(arr1.shift())
+  while (left.length && right.length) {
+    if (left[0] < right[0]) {
+      sortedList.push(left.shift())
     } else {
-      sortedList.push(arr2.shift())
+      sortedList.push(right.shift())
     }
   }
 
-  return [...sortedList, ...arr1, ...arr2]
+  return [...sortedList, ...left, ...right]
 }
 
-const mergeSort = arr => {
+const mergeSort = (arr) => {
+  console.log("🚀 ~ arr:", arr)
   if (arr.length <= 1) return arr
 
-  const mid = Math.floor(arr.length / 2)
+  let mid = Math.floor(arr.length / 2)
+  let left = mergeSort(arr.slice(0, mid))
+  let right = mergeSort(arr.slice(mid))
 
-  const left = mergeSort(arr.slice(0, mid))
-  const right = mergeSort(arr.slice(mid))
+  return mergeAndSort(left, right)
+};
 
-  return sortAndMerge(left, right)
-}
-
-const unSortedList = [5, 4, 1, 9, 2]
-console.log("🚀 ~ mergeSort:", mergeSort(unSortedList)) // [1, 2, 4, 5, 9]
+const unSortedList = [5, 4, 1, 9, 2];
+console.log("🚀 Sorted List:", mergeSort(unSortedList));
